@@ -1,3 +1,9 @@
+/*********************************************************/
+/* Prompt: Write a program to find the most common		 */
+/*		digraphs in a Latin-based alphabet, ignoring	 */
+/*		everything except alphabetic characters.		 */
+/*********************************************************/
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -5,16 +11,15 @@
 
 char buf[BUFSIZE];
 char src_filename[] = "william_shakespeare.txt";
-char dest_filename[] = "diagraph_count.csv";
-int diagraph_count[26*26];
+char dest_filename[] = "digraph_count.csv";
+int digraph_count[26*26];
 
 int main(int argc, char *argv[])
 {
 	FILE *file;
 	size_t n;
 	char prev;
-	int prev_valid;
-	int count;
+	int prev_valid, index, count;
 	
 	file = fopen(src_filename, "r");
 	if (!file) {
@@ -22,18 +27,20 @@ int main(int argc, char *argv[])
 		exit(0);
 	}
 	prev_valid = 0;
+	count = 0;
 	
 	while (n = fread(buf, sizeof(char), BUFSIZE, file)) {
-		for (count = 0; count < n; count++) {
+		for (index = 0; index < n; index++) {
 			if (prev_valid) {
-				if (isalpha(buf[count])) {
-					diagraph_count[26*(prev - 'a') + tolower(buf[count]) - 'a']++;
-					prev = tolower(buf[count]);
+				if (isalpha(buf[index])) {
+					digraph_count[26*(prev - 'a') + tolower(buf[index]) - 'a']++;
+					prev = tolower(buf[index]);
+					count++;
 				} else
 					prev_valid = 0;
-			} else if (isalpha(buf[count])) {
+			} else if (isalpha(buf[index])) {
 				prev_valid = 1;
-				prev = tolower(buf[count]);
+				prev = tolower(buf[index]);
 			}
 		}
 	}
@@ -45,10 +52,18 @@ int main(int argc, char *argv[])
 		exit(0);
 	}
 
-	for (count = 0; count < 26*26; count++) {
-		fprintf(file, "%c%c,%d\n", count / 26 + 'a', count % 26 + 'a', diagraph_count[count]);
+	for (index = 0; index < 26*26; index++) {
+		fprintf(file, "%c%c,%f%\n", index/26+'a', index%26+'a', 100*digraph_count[index]/(float)count);
 	}
 	fclose(file);
+
+	prev_valid = 0;
+	for (index = 0; index < 26*26; index++) {
+		prev_valid += digraph_count[index];
+	}
+	
+	printf("%f\n", prev_valid/(float)count);
+
 	return 0;
 }
 
