@@ -1,9 +1,9 @@
 /*********************************************************/
 /* Prompt: The following message is encrypted with a	 */
-/* 		monoalphabetic cipher. Ignore spaces and		 */
-/*		punctuation, decrypt the message.				 */
-/*														 */
-/*		WKH FDW LQ WKH KDW VWULNHV EDFN					 */
+/* 		monoalphabetic cipher. Ignore spaces and */
+/*		punctuation, decrypt the message.	 */
+/*							 */
+/*		WKH FDW LQ WKH KDW VWULNHV EDFN		 */
 /*********************************************************/
 
 #include <stdlib.h>
