@@ -1,8 +1,8 @@
-/*********************************************************/
-/* Prompt: Write a program to find the most common		 */
-/*		digraphs in a Latin-based alphabet, ignoring	 */
-/*		everything except alphabetic characters.		 */
-/*********************************************************/
+/*************************************************************/
+/* Prompt: Write a program to find the most common           */
+/*		digraphs in a Latin-based alphabet, ignoring */
+/*		everything except alphabetic characters.     */
+/*************************************************************/
 
 #include <stdlib.h>
 #include <stdio.h>
